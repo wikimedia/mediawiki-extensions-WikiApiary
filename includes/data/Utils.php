@@ -25,7 +25,7 @@ class Utils {
 	 * @param bool $extract
 	 * @return string|array
 	 */
-	public static function checkForMultiple( string $option, bool $extract = false ): string|array {
+	public static function checkForMultiple( string $option, bool $extract = false ) {
 		$ret = [];
 		if ( str_contains( $option, ','	) ) {
 			$exploded = array_map( 'trim', explode(
@@ -66,7 +66,7 @@ class Utils {
 	 */
 	public static function getPageTitleFromID( int $id ): ?string {
 		$title = Title::newFromID( $id );
-		return $title?->getFullText();
+		return $title ? $title->getFullText() : null;
 	}
 
 	/**
@@ -102,7 +102,7 @@ class Utils {
 	 */
 	public static function exportArrayFunction( array $data ): array {
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'ArrayFunctions' ) ) {
-			return [ Utils::export( $data ) ];
+			return [ self::export( $data ) ];
 		} else {
 			return [];
 		}

@@ -89,9 +89,9 @@ class Query {
 	 * @return mixed
 	 */
 	private function query(
-		string|array $select,
+		$select,
 		string $table,
-		null|string|array $selectWhere,
+		$selectWhere,
 		int $limit,
 		string $format
 	): mixed {
@@ -128,7 +128,5 @@ class Query {
 
 		return $result;
 	}
-
-
 
 }

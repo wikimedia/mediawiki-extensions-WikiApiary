@@ -24,7 +24,6 @@ namespace WikiApiary;
 use DatabaseUpdater;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
-use MediaWiki\MediaWikiServices;
 use WikiApiary\Scribunto\ScribuntoLuaLibrary;
 
 class DBHooks implements LoadExtensionSchemaUpdatesHook, ParserFirstCallInitHook {

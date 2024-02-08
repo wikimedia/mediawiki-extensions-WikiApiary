@@ -100,9 +100,9 @@ class Structure {
 	 */
 	public function columnExists( string $tableName, string $columnName ): bool {
 		if ( $this->tableExists( $tableName ) ) {
-//			echo "<pre>";
-//			var_dump( $tableName, $this->dbStructure[$tableName] );
-//			echo "</pre>";
+			// echo "<pre>";
+			// var_dump( $tableName, $this->dbStructure[$tableName] );
+			// echo "</pre>";
 			return in_array( $columnName, $this->dbStructure[$tableName] );
 		}
 		return false;

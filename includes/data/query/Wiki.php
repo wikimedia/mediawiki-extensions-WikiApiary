@@ -153,12 +153,17 @@ class Wiki {
 			$result['extensions'] = $this->getExtensions( $result['scrape'][Structure::SCRAPE_VR_ID], $dbr );
 			$result['skins'] = $this->getSkins( $result['scrape'][Structure::SCRAPE_VR_ID], $dbr );
 		}
-		return match ( $export ) {
-			"table" => Utils::renderTable( $result,
-				'Results for ' . $result['wiki']['w8y_pageTitle'] . ' ( pageID: ' . $pageID . ' )' ),
-			"arrayfunctions" => [ Utils::exportArrayFunction( $result ), 'nowiki' => true ],
-			"lua" => $result,
-			default => "",
-		};
+		switch ( $export ) {
+			case "table":
+				return Utils::renderTable( $result,
+					'Results for ' . $result['wiki']['w8y_pageTitle'] .
+					' ( pageID: ' . $pageID . ' )' );
+			case "arrayfunctions":
+				return [ Utils::exportArrayFunction( $result ), 'nowiki' => true ];
+			case "lua":
+				return $result;
+			default:
+				return "";
+		}
 	}
 }

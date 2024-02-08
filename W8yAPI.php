@@ -1,13 +1,11 @@
 <?php
 
 use WikiApiary\data\Structure;
-use WikiApiary\data\Utils;
 use WikiApiary\TagHooks;
 use Wikimedia\ParamValidator\ParamValidator;
 use Wikimedia\ParamValidator\TypeDef\IntegerDef;
 
 class W8yAPI extends ApiBase {
-
 
 	/**
 	 * @var Structure

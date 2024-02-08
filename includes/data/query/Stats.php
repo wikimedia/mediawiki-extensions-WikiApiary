@@ -33,7 +33,7 @@ class Stats {
 	 *
 	 * @return array
 	 */
-	private function getMediaWikiVersionInfo( int $limit, DBConnRef $dbr, string $where = ''  ): array {
+	private function getMediaWikiVersionInfo( int $limit, DBConnRef $dbr, string $where = '' ): array {
 		$select = [ Structure::SCRAPE_MEDIAWIKI_VERSION,
 			'count' => 'count(*)' ];
 		$from = Structure::DBTABLE_SCRAPE;
