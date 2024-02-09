@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kizule"
+		]
+	},
+	"apihelp-wikiapiary-summary": "{{doc-apihelp-summary|apihelp-wikiapiary-summary}}",
+	"apihelp-w8y-example-1": "{{doc-apihelp-example|apihelp-w8y-example-1}}",
+	"apihelp-wikiapiary-param-what": "{{doc-apihelp-param|apihelp-wikiapiary-param-what|what}}",
+	"apihelp-wikiapiary-param-return": "{{doc-apihelp-param|apihelp-wikiapiary-param-return|return}}",
+	"apihelp-wikiapiary-param-from": "{{doc-apihelp-param|apihelp-wikiapiary-param-from|from}}",
+	"apihelp-wikiapiary-param-where": "{{doc-apihelp-param|apihelp-wikiapiary-param-where|where}}",
+	"apihelp-wikiapiary-param-limit": "{{doc-apihelp-param|apihelp-wikiapiary-param-limit|limit}}",
+	"apihelp-wikiapiary-param-output": "{{doc-apihelp-param|apihelp-wikiapiary-param-output|output}}",
+	"apihelp-wikiapiary-param-pageid": "{{doc-apihelp-param|apihelp-wikiapiary-param-pageid|pageid}}",
+	"apihelp-wikiapiary-param-for": "{{doc-apihelp-param|apihelp-wikiapiary-param-for|for}}",
+	"apihelp-wikiapiary-param-extension-name": "{{doc-apihelp-param|apihelp-wikiapiary-param-extension-name|extension-name}}",
+	"apihelp-wikiapiary-param-type": "{{doc-apihelp-param|apihelp-wikiapiary-param-type|type}}"
+}

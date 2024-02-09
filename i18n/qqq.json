@@ -1,12 +1,42 @@
 {
 	"@metadata": {
 		"authors": [
-			"Cindy Cicalese"
+			"Cindy Cicalese",
+			"Kizule"
 		]
 	},
 	"wikiapiary-desc": "{{desc|name=WikiApiary|url=https://www.mediawiki.org/wiki/Extension:WikiApiary}}",
-	"w8y_not-a-valid-table": "not an existing table error",
-	"w8y_missing-table-argument": "missing table argument",
-	"w8y_not-a-valid-column": "not a valid column"
+	"w8y_not-a-valid-table": "Error message when existing table is invalid.",
+	"w8y_missing-table-argument": "Error message when there is a missing table argument.",
+	"w8y_not-a-valid-column": "Error message when colum is invalid.",
+	"w8y_missing-page-id": "Error message when page ID is missing.",
+	"w8y_page_title": "Label for page title column.",
+	"w8y_count": "Label for count column.",
+	"w8y_wi_page_id": "Label for page ID column.",
+	"w8y_wi_api_url": "Label for API URL column.",
+	"w8y_wi_last_sr_id": "Label for last scrape record column.",
+	"w8y_wi_is_defunct": "Label for is defunct column.",
+	"w8y_sr_sr_id": "Label for scrape record ID column.",
+	"w8y_sr_page_id": "Label for page ID column.",
+	"w8y_sr_api_url": "Label for API URL column.",
+	"w8y_sr_timestamp": "Label for timestamp column.",
+	"w8y_sr_is_alive": "Label for is alive column.",
+	"w8y_sr_vr_id": "Label for version record ID column.",
+	"w8y_sr_mw_version": "Label for MediaWiki version column.",
+	"w8y_sr_db_version": "Label for database version column.",
+	"w8y_sr_php_version": "Label for PHP version column.",
+	"w8y_sr_logo": "Label for logo column.",
+	"w8y_sr_favicon": "Label for favicon column.",
+	"w8y_sr_language": "Label for language column.",
+	"w8y_sr_general": "Label for general column.",
+	"w8y_sr_statistics": "Label for statistics column.",
+	"w8y_sd_sd_id": "Label for extension ID column.",
+	"w8y_sd_name": "Label for extension name column.",
+	"w8y_sd_version": "Label for extension version column.",
+	"w8y_sd_doc_url": "Label for extension documentation URL column.",
+	"w8y_ed_ed_id": "Label for extension distribution ID column.",
+	"w8y_ed_name": "Label for extension distribution name column.",
+	"w8y_ed_version": "Label for extension distribution version column.",
+	"w8y_ed_doc_url": "Label for extension distribution documentation URL column.",
+	"w8y-api-error-unknown-what-parameter": "Error message when the what parameter is missing."
 }
-
