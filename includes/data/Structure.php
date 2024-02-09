@@ -41,10 +41,8 @@ class Structure {
 	public const SKIN_NAME = 'w8y_sd_name';
 	public const SCRAPE_MEDIAWIKI_VERSION = 'w8y_sr_mw_version';
 
-	/**
-	 *
-	 */
 	public function __construct() {
+		// phpcs:disable MediaWiki.NamingConventions.ValidGlobalName.allowedPrefix
 		global $IP;
 		$jsonFile = $IP . '/extensions/WikiApiary/sql/tables.json';
 		if ( file_exists( $jsonFile ) ) {
