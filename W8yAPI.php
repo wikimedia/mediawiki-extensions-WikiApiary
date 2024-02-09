@@ -80,11 +80,11 @@ class W8yAPI extends ApiBase {
 				case "wiki":
 				case "stats":
 				case "extension":
-				$result = TagHooks::handleIt( $params );
-				if ( $result['status'] === 'error' ) {
-					$this->returnFailure( $result['data'] );
-				}
-				$output = $result['data'];
+					$result = TagHooks::handleIt( $params );
+					if ( $result['status'] === 'error' ) {
+						$this->returnFailure( $result['data'] );
+					}
+					$output = $result['data'];
 					break;
 				default:
 					$this->returnFailure( $this->msg( 'w8y-api-error-unknown-what-parameter' ) );
