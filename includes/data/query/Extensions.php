@@ -203,7 +203,7 @@ class Extensions {
 			case "usedby":
 				$result = $this->getExtensionWiki( $extensionName, $limit, $dbr );
 				$tables = [ Structure::w8yMessage( Structure::WIKI_PAGEID ),
-					Structure::w8yMessage( 'w8y_pageTitle' )
+					Structure::w8yMessage( 'w8y_page_title' )
 				];
 				break;
 			default:
