@@ -207,28 +207,28 @@ class Stats {
 
 		$tables = [ Structure::w8yMessage( 'w8y_count' ) ];
 		switch ( $export ) {
-			 case "table":
-				 if ( $action === "extensions" ) {
-					 return Utils::renderTable( $result,
-						 'Top ' . $limit . ' used extensions',
-						 array_merge( $tables, [ Structure::w8yMessage( Structure::EXTENSION_NAME ) ] ),
-						 true );
-				 }
-				 if ( $action === "skins" ) {
-					 return Utils::renderTable( $result,
-						 'Top ' . $limit . ' used skins',
-						 array_merge( $tables, [ Structure::w8yMessage( Structure::SKIN_NAME ) ] ),
-						 true );
-				 }
-				 if ( $action === "mwversion" ) {
-					 return Utils::renderTable( $result,
-						 'Top ' . $limit . ' most used MediaWiki versions',
-						 array_merge( $tables, [ Structure::w8yMessage( Structure::SCRAPE_MEDIAWIKI_VERSION ) ] ),
-						 true );
-				 }
-				 break;
-				case "arrayfunctions":
-					return [ Utils::exportArrayFunction( $result ), 'nowiki' => true ];
+			case "table":
+				if ( $action === "extensions" ) {
+					return Utils::renderTable( $result,
+						'Top ' . $limit . ' used extensions',
+						array_merge( $tables, [ Structure::w8yMessage( Structure::EXTENSION_NAME ) ] ),
+						true );
+				}
+				if ( $action === "skins" ) {
+					return Utils::renderTable( $result,
+						'Top ' . $limit . ' used skins',
+						array_merge( $tables, [ Structure::w8yMessage( Structure::SKIN_NAME ) ] ),
+						true );
+				}
+				if ( $action === "mwversion" ) {
+					return Utils::renderTable( $result,
+						'Top ' . $limit . ' most used MediaWiki versions',
+						array_merge( $tables, [ Structure::w8yMessage( Structure::SCRAPE_MEDIAWIKI_VERSION ) ] ),
+						true );
+				}
+				break;
+			case "arrayfunctions":
+				return [ Utils::exportArrayFunction( $result ), 'nowiki' => true ];
 			case "lua":
 			case "json":
 				return $result;
