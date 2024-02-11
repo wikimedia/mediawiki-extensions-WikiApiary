@@ -8,11 +8,11 @@
  * Time        : 21:36
  */
 
-namespace WikiApiary\data\query;
+namespace MediaWiki\Extension\WikiApiary\data\query;
 
+use MediaWiki\Extension\WikiApiary\data\Structure;
+use MediaWiki\Extension\WikiApiary\data\Utils;
 use MediaWiki\MediaWikiServices;
-use WikiApiary\data\Structure;
-use WikiApiary\data\Utils;
 use Wikimedia\Rdbms\DBConnRef;
 
 class MediaWiki {
@@ -65,10 +65,9 @@ class MediaWiki {
 	 * @param string $version
 	 * @param int $limit
 	 * @param string $export
-	 *
-	 * @return mixed
+	 * @return array|string
 	 */
-	public function doQuery( string $version, int $limit = 10, string $export = "table" ): mixed {
+	public function doQuery( string $version, int $limit = 10, string $export = "table" ) {
 		/*
 		 * MediaWiki version - given major version:
 	•	also major/minor/special versions associated with major version
@@ -76,7 +75,6 @@ class MediaWiki {
 		 */
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$dbr = $lb->getConnectionRef( DB_REPLICA );
-		$result = [];
 
 		$result = $this->getMediaWikiVersionInfo( $version, $limit, $dbr );
 
@@ -92,8 +90,6 @@ class MediaWiki {
 				return [ Utils::exportArrayFunction( $result ), 'nowiki' => true ];
 			case "lua":
 				return $result;
-			default:
-				return "";
 		}
 		return "";
 	}

@@ -1,156 +1,49 @@
 <?php
-/**
- * Created by  : Open CSP
- * Project     : WikiApiary
- * Filename    : tagHooks.php
- * Description :
- * Date        : 1-1-2024
- * Time        : 22:03
+/*
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  */
 
-namespace WikiApiary;
+namespace MediaWiki\Extension\WikiApiary;
 
-use MediaWiki\MediaWikiServices;
-use Parser;
-use WikiApiary\data\query\Extensions;
-use WikiApiary\data\query\Query;
-use WikiApiary\data\query\Stats;
-use WikiApiary\data\query\Wiki;
-use WikiApiary\data\ResponseHandler;
-use WikiApiary\data\Utils;
+use MediaWiki\Hook\ParserFirstCallInitHook;
 
-class TagHooks {
+class TagHooks implements ParserFirstCallInitHook {
 
 	/**
-	 * @var array
+	 * @var TagService
 	 */
-	private array $parameters;
+	private $tagService;
 
 	/**
-	 * @param array $parameters
-	 *
-	 * @return array|string[]
+	 * @param TagService $tagService
 	 */
-	public static function handleIt( array $parameters ): array {
-		$action = Utils::getOptionSetting( 'action', true, $parameters );
-		$limit = Utils::getOptionSetting( 'limit', true, $parameters );
-		$format = Utils::getOptionSetting( 'format', true, $parameters );
-		$result = '';
-		switch ( $action ) {
-			case "extension":
-				$eName = Utils::getOptionSetting( 'Extension name', true, $parameters );
-				$eType = Utils::getOptionSetting( 'type', true, $parameters );
-				$limit = Utils::getOptionSetting( 'limit', true, $parameters );
-				if ( $eName === null || $eType === null ) {
-					break;
-				}
-				if ( $limit === null ) {
-					$limit = 10;
-				} else {
-					$limit = intval( trim( $limit ) );
-				}
-				$extension = new Extensions();
-				$result = $extension->doQuery( $eName, $eType, $limit );
-				break;
-			case "query":
-				$query = new Query();
-				$get = Utils::getOptionSetting( 'return', true, $parameters );
-				$table = Utils::getOptionSetting( 'from', true, $parameters );
-				$where = Utils::getOptionSetting( 'where', true, $parameters );
-				$result = $query->doQuery( $get,
-					$table,
-					$where,
-					$limit,
-					$format );
-				break;
-			case "wiki":
-				$pId = Utils::getOptionSetting( 'pageId', true, $parameters );
-				if ( $pId === null ) {
-					ResponseHandler::addMessage( wfMessage( 'w8y_missing-page-id' )->text() );
-				} else {
-					$query = new Wiki();
-					if ( $format === null ) {
-						$format = 'table';
-					}
-					$result = $query->doQuery( intval( $pId ), $format );
-				}
-				break;
-			case "stats":
-				$type = Utils::getOptionSetting( 'for', true, $parameters );
-				$where = Utils::getOptionSetting( 'where', true, $parameters );
-				if ( $limit === null ) {
-					$limit = 10;
-				}
-				if ( $where === null ) {
-					$where = '';
-				}
-				if ( $type !== null ) {
-					$query = new Stats();
-					if ( $format === null ) {
-						$format = 'table';
-					}
-					$result = $query->doQuery( $type, $where, $limit, $format );
-				}
-				break;
-			case "addToDB":
-				break;
-		}
-		if ( !empty( ResponseHandler::getMessages() ) ) {
-			return [ 'status' => 'error', 'data' => ResponseHandler::getMessages() ];
-		} elseif ( is_array( $result ) && $format !== 'json' ) {
-			return [ 'status' => 'error', 'data' => "<pre>" . print_r( $result, true ) . "</pre>" ];
-		} else {
-			return [ 'status' => 'ok', 'data' => $result ];
-		}
+	public function __construct( TagService $tagService ) {
+		$this->tagService = $tagService;
 	}
 
 	/**
-	 * @param Parser &$parser
-	 *
-	 * @return mixed
+	 * @inheritDoc
 	 */
-	public function w8y( Parser &$parser ): mixed {
-		// First set global debug status
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		if ( $config->has( 'WikiApiary' ) ) {
-			$w8yConfig = $config->get( 'WikiApiary' );
-			DBHooks::$debug = $w8yConfig['debug'];
-		} else {
-			DBHooks::$debug = false;
-		}
-
-		$parameters = $this->extractOptions( array_slice( func_get_args(), 1 ) );
-		Utils::$parameters = $parameters;
-		$result = self::handleIt( $parameters );
-		return $result['data'];
-	}
-
-	/**
-	 * Converts an array of values in form [0] => "name=value" into a real associative array in form [name] => value.
-	 * If no "=" is provided, true is assumed like this: [name] => true.
-	 *
-	 * @param array $options
-	 *
-	 * @return array
-	 */
-	private function extractOptions( array $options ): array {
-		$results = [];
-
-		foreach ( $options as $option ) {
-			$pair = array_map( 'trim',
-				explode( '=',
-					$option,
-					2 ) );
-
-			if ( count( $pair ) === 2 ) {
-				$results[$pair[0]] = $pair[1];
-			}
-
-			if ( count( $pair ) === 1 ) {
-				$results[$pair[0]] = true;
-			}
-		}
-
-		return $results;
+	public function onParserFirstCallInit( $parser ): void {
+		$parser->setFunctionHook(
+			'w8y',
+			[ $this->tagService, 'w8y' ]
+		);
 	}
 }

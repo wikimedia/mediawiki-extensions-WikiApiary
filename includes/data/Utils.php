@@ -8,7 +8,7 @@
  * Time        : 10:38
  */
 
-namespace WikiApiary\data;
+namespace MediaWiki\Extension\WikiApiary\data;
 
 use ExtensionRegistry;
 use Title;
@@ -73,10 +73,9 @@ class Utils {
 	 * @param string $k
 	 * @param bool $checkEmpty
 	 * @param array|null $arguments
-	 *
-	 * @return mixed
+	 * @return string|true|null
 	 */
-	public static function getOptionSetting( string $k, bool $checkEmpty = true, array $arguments = [] ): mixed {
+	public static function getOptionSetting( string $k, bool $checkEmpty = true, array $arguments = [] ) {
 		if ( empty( $arguments ) ) {
 			$arguments = self::$parameters;
 		}

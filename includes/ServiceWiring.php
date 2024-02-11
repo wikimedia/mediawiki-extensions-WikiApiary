@@ -21,18 +21,11 @@
 
 namespace MediaWiki\Extension\WikiApiary;
 
-use DatabaseUpdater;
-use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
+use MediaWiki\MediaWikiServices;
 
-class DBHooks implements LoadExtensionSchemaUpdatesHook {
-
-	/**
-	 * Updates database schema.
-	 *
-	 * @param DatabaseUpdater $updater database updater
-	 */
-	public function onLoadExtensionSchemaUpdates( $updater ) {
-		$dir = __DIR__ . '/../sql/' . $updater->getDB()->getType();
-		$updater->addExtensionTable( 'w8y_wikis', $dir . '/tables.sql' );
-	}
-}
+return [
+	'TagService' =>
+		static function ( MediaWikiServices $services ): TagService {
+			return new TagService();
+		},
+];

@@ -8,23 +8,15 @@
  * Time        : 21:11
  */
 
-namespace WikiApiary\data\query;
+namespace MediaWiki\Extension\WikiApiary\data\query;
 
+use Exception;
+use MediaWiki\Extension\WikiApiary\data\Structure;
+use MediaWiki\Extension\WikiApiary\data\Utils;
 use MediaWiki\MediaWikiServices;
-use WikiApiary\data\Structure;
-use WikiApiary\data\Utils;
 use Wikimedia\Rdbms\DBConnRef;
 
 class Stats {
-
-	/**
-	 * @var Structure
-	 */
-	private Structure $structure;
-
-	public function __construct() {
-		$this->structure = new Structure();
-	}
 
 	/**
 	 * @param int $limit
@@ -57,7 +49,7 @@ class Stats {
 				caller( __METHOD__ )->
 				fetchResultSet();
 			}
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			wfDebug( $e->getMessage(), 'w8y' );
 			return [];
 		}
@@ -111,7 +103,7 @@ class Stats {
 				caller( __METHOD__ )->
 				fetchResultSet();
 			}
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			wfDebug( $e->getMessage(), 'w8y' );
 			return [];
 		}
@@ -164,7 +156,7 @@ class Stats {
 				caller( __METHOD__ )->
 				fetchResultSet();
 			}
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			wfDebug( $e->getMessage(), 'w8y' );
 			return [];
 		}
@@ -186,10 +178,9 @@ class Stats {
 	 * @param string $where
 	 * @param int $limit
 	 * @param string $export
-	 *
-	 * @return mixed
+	 * @return array|string
 	 */
-	public function doQuery( string $action, string $where, int $limit = 10, string $export = "table" ): mixed {
+	public function doQuery( string $action, string $where, int $limit = 10, string $export = "table" ) {
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$dbr = $lb->getConnectionRef( DB_REPLICA );
 		$result = [];

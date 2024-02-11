@@ -21,18 +21,33 @@
 
 namespace MediaWiki\Extension\WikiApiary;
 
-use DatabaseUpdater;
-use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
+use MediaWiki\Extension\WikiApiary\Scribunto\ScribuntoLuaLibrary;
 
-class DBHooks implements LoadExtensionSchemaUpdatesHook {
+class ScribuntoHooks {
 
 	/**
-	 * Updates database schema.
+	 * Add w8y library to Scribunto.
 	 *
-	 * @param DatabaseUpdater $updater database updater
+	 * @link https://www.mediawiki.org/wiki/Extension:Scribunto/Hooks/ScribuntoExternalLibraries
+	 *
+	 * @param string $engine
+	 * @param array &$extraLibraries
 	 */
-	public function onLoadExtensionSchemaUpdates( $updater ) {
-		$dir = __DIR__ . '/../sql/' . $updater->getDB()->getType();
-		$updater->addExtensionTable( 'w8y_wikis', $dir . '/tables.sql' );
+	public static function onScribuntoExternalLibraries( string $engine, array &$extraLibraries ): void {
+		if ( $engine === 'lua' ) {
+			$extraLibraries['w8y'] = ScribuntoLuaLibrary::class;
+		}
+	}
+
+	/**
+	 * External Lua library paths for Scribunto
+	 *
+	 * @param string $engine
+	 * @param string[] &$extraLibraryPaths
+	 */
+	public static function onScribuntoExternalLibraryPaths( string $engine, array &$extraLibraryPaths ): void {
+		if ( $engine === 'lua' ) {
+			$extraLibraryPaths[] = __DIR__ . '/Scribunto';
+		}
 	}
 }
