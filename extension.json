@@ -1,6 +1,6 @@
 {
 	"name": "WikiApiary",
-	"version": "0.5.2",
+	"version": "0.5.3",
 	"author": [
 		"[https://www.mediawiki.org/wiki/User:Cindy.cicalese Cindy Cicalese]",
 		"[https://www.mediawiki.org/wiki/User:Sen-Sai Charly Cobben]"
@@ -28,17 +28,29 @@
 		"wikiapiary": "W8yAPI"
 	},
 	"AutoloadNamespaces": {
-		"WikiApiary\\": "includes/"
+		"MediaWiki\\Extension\\WikiApiary\\": "includes/"
 	},
+	"ServiceWiringFiles": [
+		"includes/ServiceWiring.php"
+	],
 	"HookHandlers": {
 		"dbhooks": {
-			"class": "WikiApiary\\DBHooks"
+			"class": "MediaWiki\\Extension\\WikiApiary\\DBHooks"
+		},
+		"taghooks": {
+			"class": "MediaWiki\\Extension\\WikiApiary\\TagHooks",
+			"services": [
+				"TagService"
+			]
+		},
+		"scribuntohooks": {
+			"class": "MediaWiki\\Extension\\WikiApiary\\ScribuntoHooks"
 		}
 	},
 	"Hooks": {
 		"LoadExtensionSchemaUpdates": "dbhooks",
-		"ParserFirstCallInit": "dbhooks",
-		"ScribuntoExternalLibraries": "dbhooks"
+		"ParserFirstCallInit": "taghooks",
+		"ScribuntoExternalLibraries": "scribuntohooks"
 	},
 	"config": {
 		"WikiApiary": {

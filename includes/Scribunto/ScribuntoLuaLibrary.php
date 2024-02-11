@@ -1,16 +1,17 @@
 <?php
 
-namespace WikiApiary\Scribunto;
+namespace MediaWiki\Extension\WikiApiary\Scribunto;
 
-use WikiApiary\data\query\Extensions;
-use WikiApiary\data\query\Stats;
-use WikiApiary\data\query\Wiki;
-use WikiApiary\data\Utils;
+use MediaWiki\Extension\WikiApiary\data\query\Extensions;
+use MediaWiki\Extension\WikiApiary\data\query\Stats;
+use MediaWiki\Extension\WikiApiary\data\query\Wiki;
+use MediaWiki\Extension\WikiApiary\data\Utils;
+use Scribunto_LuaLibraryBase;
 
 /**
  * Register the Lua library.
  */
-class ScribuntoLuaLibrary extends \Scribunto_LuaLibraryBase {
+class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * @inheritDoc
@@ -20,7 +21,7 @@ class ScribuntoLuaLibrary extends \Scribunto_LuaLibraryBase {
 			'w8y' => [ $this, 'w8y' ]
 		];
 
-		$this->getEngine()->registerInterface( __DIR__ . '/' . 'mw.w8y.lua', $interfaceFuncs, [] );
+		$this->getEngine()->registerInterface( __DIR__ . '/' . 'mw.w8y.lua', $interfaceFuncs );
 	}
 
 	/**
@@ -74,10 +75,6 @@ class ScribuntoLuaLibrary extends \Scribunto_LuaLibraryBase {
 				} else {
 					$limit = intval( trim( $limit ) );
 				}
-				$where = Utils::getOptionSetting( 'where', true, $arguments );
-				if ( $where === null ) {
-					$where = '';
-				}
 				$query = new Stats();
 				$result = $query->doQuery( $type, $limit, 'lua' );
 				return [ $this->convertToLuaTable( $result ) ];
@@ -90,7 +87,7 @@ class ScribuntoLuaLibrary extends \Scribunto_LuaLibraryBase {
 	 * @param mixed $array
 	 * @return mixed
 	 */
-	private function convertToLuaTable( mixed $array ) {
+	private function convertToLuaTable( $array ) {
 		if ( is_array( $array ) ) {
 			foreach ( $array as $key => $value ) {
 				$array[$key] = $this->convertToLuaTable( $value );

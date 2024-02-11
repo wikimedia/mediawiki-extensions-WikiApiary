@@ -8,11 +8,11 @@
  * Time        : 22:05
  */
 
-namespace WikiApiary\data\query;
+namespace MediaWiki\Extension\WikiApiary\data\query;
 
+use MediaWiki\Extension\WikiApiary\data\Structure;
+use MediaWiki\Extension\WikiApiary\data\Utils;
 use MediaWiki\MediaWikiServices;
-use WikiApiary\data\Structure;
-use WikiApiary\data\Utils;
 use Wikimedia\Rdbms\DBConnRef;
 
 class Wiki {
@@ -132,10 +132,9 @@ class Wiki {
 	/**
 	 * @param int $pageID
 	 * @param string $export
-	 *
-	 * @return mixed
+	 * @return array|string
 	 */
-	public function doQuery( int $pageID, string $export = "table" ): mixed {
+	public function doQuery( int $pageID, string $export = "table" ) {
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$dbr = $lb->getConnectionRef( DB_REPLICA );
 

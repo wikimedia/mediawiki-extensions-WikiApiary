@@ -8,11 +8,12 @@
  * Time        : 21:42
  */
 
-namespace WikiApiary\data\query;
+namespace MediaWiki\Extension\WikiApiary\data\query;
 
+use Exception;
+use MediaWiki\Extension\WikiApiary\data\Structure;
+use MediaWiki\Extension\WikiApiary\data\Utils;
 use MediaWiki\MediaWikiServices;
-use WikiApiary\data\Structure;
-use WikiApiary\data\Utils;
 use Wikimedia\Rdbms\DBConnRef;
 
 class Extensions {
@@ -23,7 +24,7 @@ class Extensions {
 	 *
 	 * @return array
 	 */
-	private function getExtensionVersions( string $extensionName, DBConnRef $dbr ) {
+	private function getExtensionVersions( string $extensionName, DBConnRef $dbr ): array {
 		$select = [ Structure::EXTENSION_VERSION, 'count' => 'count(*)' ];
 		$from = Structure::DBTABLE_WIKIS;
 		$where = Structure::EXTENSION_NAME . ' LIKE "' . $extensionName . '"';
@@ -48,7 +49,7 @@ class Extensions {
 			orderBy( 'count', 'DESC' )->
 			caller( __METHOD__ )->
 			fetchResultSet();
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			wfDebug( $e->getMessage(), 'w8y' );
 			return [];
 		}
@@ -71,7 +72,7 @@ class Extensions {
 	 *
 	 * @return array
 	 */
-	private function getExtensionDocumentation( string $extensionName, DBConnRef $dbr ) {
+	private function getExtensionDocumentation( string $extensionName, DBConnRef $dbr ): array {
 		$select = [ Structure::EXTENSION_DOC_URL, 'count' => 'count(*)' ];
 		$from = Structure::DBTABLE_WIKIS;
 		$where = Structure::EXTENSION_NAME . ' LIKE "' . $extensionName . '" AND ';
@@ -98,7 +99,7 @@ class Extensions {
 			orderBy( 'count', 'DESC' )->
 			caller( __METHOD__ )->
 			fetchResultSet();
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			wfDebug( $e->getMessage(), 'w8y' );
 			return [];
 		}
@@ -122,7 +123,7 @@ class Extensions {
 	 *
 	 * @return array
 	 */
-	private function getExtensionWiki( string $extensionName, int $limit, DBConnRef $dbr ) {
+	private function getExtensionWiki( string $extensionName, int $limit, DBConnRef $dbr ): array {
 		$select = [ Structure::WIKI_PAGEID ];
 		$from = Structure::DBTABLE_WIKIS;
 		$where = Structure::EXTENSION_NAME . ' LIKE "' . $extensionName . '"';
@@ -143,7 +144,7 @@ class Extensions {
 			limit( $limit )->
 			caller( __METHOD__ )->
 			fetchResultSet();
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			wfDebug( $e->getMessage(), 'w8y' );
 			return [];
 		}
@@ -178,13 +179,11 @@ class Extensions {
 	 * @param string $queryType
 	 * @param int $limit
 	 * @param string $export
-	 *
-	 * @return mixed
+	 * @return array|string
 	 */
-	public function doQuery( string $extensionName, string $queryType, int $limit, string $export = "table" ): mixed {
+	public function doQuery( string $extensionName, string $queryType, int $limit, string $export = "table" ) {
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$dbr = $lb->getConnectionRef( DB_REPLICA );
-		$result = [];
 		$tables = [];
 
 		switch ( $queryType ) {
@@ -217,8 +216,6 @@ class Extensions {
 				return [ Utils::exportArrayFunction( $result ), 'nowiki' => true ];
 			case "lua":
 				return $result;
-			default:
-				return "";
 		}
 		return "";
 	}

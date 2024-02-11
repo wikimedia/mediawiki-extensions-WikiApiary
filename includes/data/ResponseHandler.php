@@ -8,7 +8,7 @@
  * Time        : 13:08
  */
 
-namespace WikiApiary\data;
+namespace MediaWiki\Extension\WikiApiary\data;
 
 class ResponseHandler {
 

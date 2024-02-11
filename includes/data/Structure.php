@@ -8,7 +8,7 @@
  * Time        : 09:46
  */
 
-namespace WikiApiary\data;
+namespace MediaWiki\Extension\WikiApiary\data;
 
 class Structure {
 

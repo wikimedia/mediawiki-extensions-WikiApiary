@@ -8,12 +8,12 @@
  * Time        : 09:44
  */
 
-namespace WikiApiary\data\query;
+namespace MediaWiki\Extension\WikiApiary\data\query;
 
+use MediaWiki\Extension\WikiApiary\data\ResponseHandler;
+use MediaWiki\Extension\WikiApiary\data\Structure;
+use MediaWiki\Extension\WikiApiary\data\Utils;
 use MediaWiki\MediaWikiServices;
-use WikiApiary\data\ResponseHandler;
-use WikiApiary\data\Structure;
-use WikiApiary\data\Utils;
 
 class Query {
 
@@ -32,10 +32,9 @@ class Query {
 	 * @param string|null $where
 	 * @param string|null $limit
 	 * @param string|null $format
-	 *
-	 * @return mixed
+	 * @return array|string
 	 */
-	public function doQuery( ?string $get, ?string $from, ?string $where, ?string $limit, ?string $format ): mixed {
+	public function doQuery( ?string $get, ?string $from, ?string $where, ?string $limit, ?string $format ) {
 		if ( $from === null ) {
 			ResponseHandler::addMessage( wfMessage( 'w8y_missing-table-argument' )->text() );
 			return "";
@@ -85,8 +84,7 @@ class Query {
 	 * @param string|array|null $selectWhere
 	 * @param int $limit
 	 * @param string $format
-	 *
-	 * @return mixed
+	 * @return array|string
 	 */
 	private function query(
 		$select,
@@ -94,7 +92,7 @@ class Query {
 		$selectWhere,
 		int $limit,
 		string $format
-	): mixed {
+	) {
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
 		$dbr = $lb->getConnectionRef( DB_REPLICA );
 
