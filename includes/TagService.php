@@ -104,7 +104,6 @@ class TagService {
 	 */
 	public function w8y( Parser $parser ): string {
 		$parameters = $this->extractOptions( array_slice( func_get_args(), 1 ) );
-		Utils::$parameters = $parameters;
 		$result = self::handleIt( $parameters );
 		return $result['data'];
 	}

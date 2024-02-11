@@ -52,12 +52,5 @@
 		"ParserFirstCallInit": "taghooks",
 		"ScribuntoExternalLibraries": "scribuntohooks"
 	},
-	"config": {
-		"WikiApiary": {
-			"value": {
-				"debug": false
-			}
-		}
-	},
 	"manifest_version": 2
 }

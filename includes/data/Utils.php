@@ -16,11 +16,6 @@ use Title;
 class Utils {
 
 	/**
-	 * @var array
-	 */
-	public static array $parameters;
-
-	/**
 	 * @param string $option
 	 * @param bool $extract
 	 * @return string|array
@@ -76,9 +71,6 @@ class Utils {
 	 * @return string|true|null
 	 */
 	public static function getOptionSetting( string $k, bool $checkEmpty = true, array $arguments = [] ) {
-		if ( empty( $arguments ) ) {
-			$arguments = self::$parameters;
-		}
 		if ( $checkEmpty ) {
 			if ( isset( $arguments[ $k ] ) && $arguments[ $k ] != '' ) {
 				return trim( $arguments[ $k ] );
