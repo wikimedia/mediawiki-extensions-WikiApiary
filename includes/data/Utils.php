@@ -93,7 +93,7 @@ class Utils {
 	 */
 	public static function exportArrayFunction( array $data ): array {
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'ArrayFunctions' ) ) {
-			return [ self::export( $data ) ];
+			return [ \ArrayFunctions\Utils::export( $data ) ];
 		} else {
 			return [];
 		}
