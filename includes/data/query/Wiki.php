@@ -70,7 +70,7 @@ class Wiki {
 		$res = $dbr->newSelectQueryBuilder()->
 		select( $select )->
 		from( $from )->
-		join( Structure::DBTABLE_SKINS, null,	Structure::DBTABLE_SKINS_LINK . '.' . Structure::SKIN_LINK_ID . ' = ' . Structure::DBTABLE_SKINS . '.' . Structure::SKIN_ID )->
+		join( Structure::DBTABLE_SKINS, null, Structure::DBTABLE_SKINS_LINK . '.' . Structure::SKIN_LINK_ID . ' = ' . Structure::DBTABLE_SKINS . '.' . Structure::SKIN_ID )->
 		where( $where )->
 		caller( __METHOD__ )->
 		fetchResultSet();
