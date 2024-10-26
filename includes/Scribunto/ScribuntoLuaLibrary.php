@@ -2,16 +2,16 @@
 
 namespace MediaWiki\Extension\WikiApiary\Scribunto;
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use MediaWiki\Extension\WikiApiary\data\query\Extensions;
 use MediaWiki\Extension\WikiApiary\data\query\Stats;
 use MediaWiki\Extension\WikiApiary\data\query\Wiki;
 use MediaWiki\Extension\WikiApiary\data\Utils;
-use Scribunto_LuaLibraryBase;
 
 /**
  * Register the Lua library.
  */
-class ScribuntoLuaLibrary extends Scribunto_LuaLibraryBase {
+class ScribuntoLuaLibrary extends LibraryBase {
 
 	/**
 	 * @inheritDoc
