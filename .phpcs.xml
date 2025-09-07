@@ -4,6 +4,7 @@
 		<exclude name="Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition" />
 		<exclude name="Generic.Files.LineLength.TooLong" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
+		<exclude name="MediaWiki.NamingConventions.NamespaceName.NamespaceSubUpperCamelCase" />
 	</rule>
 	<file>.</file>
 	<arg name="extensions" value="php"/>
