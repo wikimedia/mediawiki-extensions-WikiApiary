@@ -11,7 +11,7 @@
 namespace MediaWiki\Extension\WikiApiary\data;
 
 use ExtensionRegistry;
-use Title;
+use MediaWiki\Title\Title;
 
 class Utils {
 
