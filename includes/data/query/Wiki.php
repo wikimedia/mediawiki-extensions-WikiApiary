@@ -136,7 +136,7 @@ class Wiki {
 	 */
 	public function doQuery( int $pageID, string $export = "table" ) {
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$dbr = $lb->getConnection( DB_REPLICA );
 
 		// Let's get the wiki and scrape information first
 

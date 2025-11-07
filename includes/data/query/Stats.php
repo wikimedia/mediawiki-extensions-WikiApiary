@@ -182,7 +182,7 @@ class Stats {
 	 */
 	public function doQuery( string $action, string $where, int $limit = 10, string $export = "table" ) {
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$dbr = $lb->getConnection( DB_REPLICA );
 		$result = [];
 		switch ( $action ) {
 			case "extensions":

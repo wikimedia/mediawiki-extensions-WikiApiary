@@ -94,7 +94,7 @@ class Query {
 		string $format
 	) {
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$dbr = $lb->getConnection( DB_REPLICA );
 
 		$selectOptions = [ 'LIMIT' => $limit ];
 		if ( $selectWhere === null ) {

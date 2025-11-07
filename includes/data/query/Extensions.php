@@ -183,7 +183,7 @@ class Extensions {
 	 */
 	public function doQuery( string $extensionName, string $queryType, int $limit, string $export = "table" ) {
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$dbr = $lb->getConnection( DB_REPLICA );
 		$tables = [];
 
 		switch ( $queryType ) {

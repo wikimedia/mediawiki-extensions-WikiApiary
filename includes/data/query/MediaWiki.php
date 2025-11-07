@@ -74,7 +74,7 @@ class MediaWiki {
 	•	list of wikis actively using with version
 		 */
 		$lb = MediaWikiServices::getInstance()->getDBLoadBalancer();
-		$dbr = $lb->getConnectionRef( DB_REPLICA );
+		$dbr = $lb->getConnection( DB_REPLICA );
 
 		$result = $this->getMediaWikiVersionInfo( $version, $limit, $dbr );
 
